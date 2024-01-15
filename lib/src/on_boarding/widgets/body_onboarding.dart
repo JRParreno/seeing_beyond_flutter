@@ -12,8 +12,8 @@ class BodyOnboarding extends StatelessWidget {
       height: double.infinity,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(70),
-          topRight: Radius.circular(70),
+          topLeft: Radius.circular(60),
+          topRight: Radius.circular(60),
         ),
         color: ColorName.primary, //Border.all
       ),

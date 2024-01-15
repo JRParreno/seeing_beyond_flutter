@@ -15,6 +15,7 @@ class InformationText extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 20,
+            color: Colors.black54,
           ),
         ),
         Gap(10),

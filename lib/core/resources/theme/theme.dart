@@ -117,7 +117,7 @@ abstract class MaterialAppThemes {
           statusBarBrightness: Brightness.dark,
         ),
         color: colorScheme.background,
-        elevation: 0,
+        elevation: 1,
         foregroundColor: colorScheme.onBackground,
         iconTheme: IconThemeData(color: colorScheme.onBackground),
         actionsIconTheme: IconThemeData(color: colorScheme.primary),
