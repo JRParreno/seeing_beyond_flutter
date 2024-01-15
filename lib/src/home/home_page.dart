@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
-import 'package:seeing_beyond/core/common_widget/custom_appbar.dart';
-import 'package:seeing_beyond/core/widgets/app_bar/custom_app_bar.dart';
 import 'package:seeing_beyond/gen/colors.gen.dart';
+import 'package:seeing_beyond/src/about_us/about_us_page.dart';
+import 'package:seeing_beyond/src/color_scanner/presentation/color_scanner_page.dart';
+import 'package:seeing_beyond/src/color_vision_test/presentation/color_vision_test_page.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = '/home';
@@ -13,16 +14,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int index = 0;
+
+  List<Widget> pages = const [
+    ColorVisionTestPage(),
+    ColorScannerPage(),
+    AboutUsPage(),
+  ];
+
   @override
   Widget build(context) {
     return Scaffold(
-      appBar: buildAppBar(
-          context: context, title: 'Color Vision Test', showBackBtn: true),
-      body: Container(),
+      body: pages[index],
       bottomNavigationBar: FluidNavBar(
-        style: const FluidNavBarStyle(
-          barBackgroundColor: ColorName.primary,
-          iconBackgroundColor: Colors.white,
+        style: FluidNavBarStyle(
+          barBackgroundColor: getBackgroundColor(index),
+          iconUnselectedForegroundColor: ColorName.placeHolder,
+          iconSelectedForegroundColor: Colors.white,
         ),
         icons: [
           FluidNavBarIcon(
@@ -38,8 +46,22 @@ class _HomePageState extends State<HomePage> {
             Icons.info,
           ).icon), // (3)
         ],
-        onChange: (value) {}, // (4)
+        onChange: (value) {
+          setState(() {
+            index = value;
+          });
+        },
       ),
     );
+  }
+
+  Color getBackgroundColor(int currentIndex) {
+    if (index == 0) {
+      return ColorName.primary;
+    }
+    if (index == 1) {
+      return Colors.orange;
+    }
+    return Colors.red;
   }
 }
