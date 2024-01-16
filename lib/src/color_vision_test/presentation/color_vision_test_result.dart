@@ -20,21 +20,19 @@ class _ColorVisionTestResultState extends State<ColorVisionTestResult> {
       body: BlocBuilder<ColorVisionBloc, ColorVisionState>(
         builder: (context, state) {
           if (state is ColorVisionResult) {
-            return SizedBox(
-              child: Expanded(
-                child: ListView.builder(
-                  itemCount: state.colorResultModel.length,
-                  itemBuilder: (context, index) {
-                    final item = state.colorResultModel[index];
+            return Container(
+              padding: const EdgeInsets.all(10),
+              child: ListView.builder(
+                itemCount: state.colorResultModel.length,
+                itemBuilder: (context, index) {
+                  final item = state.colorResultModel[index];
 
-                    return Column(
-                      children: [
-                        Text(item.colorName),
-                        Text('Percentage: ${item.percentage}'),
-                      ],
-                    );
-                  },
-                ),
+                  return Column(
+                    children: [
+                      Text('${item.colorName} ${item.percentage}%'),
+                    ],
+                  );
+                },
               ),
             );
           }
