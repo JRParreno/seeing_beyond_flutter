@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:seeing_beyond/core/local_storage/local_storage.dart';
 import 'package:seeing_beyond/core/resources/theme/theme.dart';
 import 'package:seeing_beyond/core/routes/routes.dart';
+import 'package:seeing_beyond/src/color_vision_test/data/datasources/color_vision_repository_impl.dart';
+import 'package:seeing_beyond/src/color_vision_test/presentation/bloc/color_vision_bloc.dart';
 import 'package:seeing_beyond/src/on_boarding/on_boarding_page.dart';
 
 class SeeingBeyond extends StatefulWidget {
@@ -38,21 +41,25 @@ class _SeeingBeyondState extends State<SeeingBeyond> {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      useInheritedMediaQuery: true,
-      builder: ((context, child) {
-        return MaterialApp(
-          navigatorKey: SeeingBeyond.navKey,
-          themeMode: ThemeMode.light,
-          darkTheme: MaterialAppThemes.lightTheme,
-          theme: MaterialAppThemes.lightTheme,
-          onGenerateRoute: generateRoute,
-          home:
-              isNeedOnBoarded ? const OnBoardingPage() : const OnBoardingPage(),
-        );
-      }),
+    return BlocProvider(
+      create: (context) => ColorVisionBloc(ColorVisionRepositoryImpl()),
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        useInheritedMediaQuery: true,
+        builder: ((context, child) {
+          return MaterialApp(
+            navigatorKey: SeeingBeyond.navKey,
+            themeMode: ThemeMode.light,
+            darkTheme: MaterialAppThemes.lightTheme,
+            theme: MaterialAppThemes.lightTheme,
+            onGenerateRoute: generateRoute,
+            home: isNeedOnBoarded
+                ? const OnBoardingPage()
+                : const OnBoardingPage(),
+          );
+        }),
+      ),
     );
   }
 }

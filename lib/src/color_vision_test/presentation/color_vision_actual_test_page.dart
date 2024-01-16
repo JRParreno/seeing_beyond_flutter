@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:seeing_beyond/core/common_widget/custom_appbar.dart';
+import 'package:seeing_beyond/src/color_vision_test/presentation/bloc/color_vision_bloc.dart';
+import 'package:seeing_beyond/src/color_vision_test/presentation/color_vision_test_result.dart';
+import 'package:seeing_beyond/src/color_vision_test/presentation/widgets/body_exam_color_test.dart';
+import 'package:seeing_beyond/src/color_vision_test/presentation/widgets/bottom_nav_color_test.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
@@ -15,14 +21,12 @@ class ColorVisionActualTestPage extends StatefulWidget {
 
 class _ColorVisionActualTestPageState extends State<ColorVisionActualTestPage> {
   final SpeechToText _speechToText = SpeechToText();
-  String _lastWords = "";
-
-  final TextEditingController _textController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _speechToText.initialize();
+    initBloc();
   }
 
   @override
@@ -32,46 +36,48 @@ class _ColorVisionActualTestPageState extends State<ColorVisionActualTestPage> {
         context: context,
         title: 'Color Vision Test',
       ),
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(12),
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _textController,
-                    minLines: 6,
-                    maxLines: 10,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.grey.shade300,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                FloatingActionButton.small(
-                  onPressed:
-                      // If not yet listening for speech start, otherwise stop
-                      _speechToText.isNotListening
-                          ? _startListening
-                          : _stopListening,
-                  tooltip: 'Listen',
-                  backgroundColor: Colors.blueGrey,
-                  child: Icon(
-                      _speechToText.isNotListening ? Icons.mic_off : Icons.mic),
-                )
-              ],
-            ),
-          ],
-        ),
+      body: BlocConsumer<ColorVisionBloc, ColorVisionState>(
+        listener: (context, state) {
+          if (state is ColorVisionStart) {
+            if (state.isDoneExam) {
+              BlocProvider.of<ColorVisionBloc>(context).add(OnGetResultTest());
+
+              Navigator.of(context)
+                  .pushReplacementNamed(ColorVisionTestResult.routeName);
+            }
+          }
+        },
+        builder: (context, state) {
+          if (state is ColorVisitionError) {
+            return const Center(
+              child: Text('Something went wrong.'),
+            );
+          }
+          if (state is ColorVisionStart) {
+            return BodyExamColorTest(
+              state: state,
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
+      bottomNavigationBar: BottomNavColorTest(
+        speechToText: _speechToText,
+        startListening: _startListening,
+        stopListening: _stopListening,
       ),
     );
+  }
+
+  void initBloc() {
+    BlocProvider.of<ColorVisionBloc>(context)
+        .add(OnInitShuffleColorVisionTest());
+  }
+
+  void startColorTest() {
+    BlocProvider.of<ColorVisionBloc>(context).add(OnStartColorVisionTest());
   }
 
   /// Each time to start a speech recognition session
@@ -99,9 +105,39 @@ class _ColorVisionActualTestPageState extends State<ColorVisionActualTestPage> {
   /// This is the callback that the SpeechToText plugin calls when
   /// the platform returns recognized words.
   void _onSpeechResult(SpeechRecognitionResult result) {
-    setState(() {
-      _lastWords = result.recognizedWords;
-      _textController.text = _lastWords;
-    });
+    final colorNameWords = [
+      'red',
+      'yellow',
+      'orange',
+      'blue',
+      'indigo',
+      'violet',
+      'green'
+    ];
+
+    final recognizedWords = result.recognizedWords;
+    String colorName = '';
+
+    for (String colorNameWord in colorNameWords) {
+      final check = recognizedWords.toLowerCase().contains(colorNameWord);
+
+      if (check) {
+        colorName = colorNameWord;
+        break;
+      }
+    }
+    if (colorName.isNotEmpty) {
+      BlocProvider.of<ColorVisionBloc>(context)
+          .add(OnGetSpeechToText(result.recognizedWords));
+    } else {
+      Fluttertoast.showToast(
+          msg: "Please try again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
   }
 }

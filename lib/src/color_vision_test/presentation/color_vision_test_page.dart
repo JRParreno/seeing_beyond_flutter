@@ -28,10 +28,6 @@ class _ColorVisionTestPageState extends State<ColorVisionTestPage> {
   @override
   void initState() {
     super.initState();
-
-    // Create and store the VideoPlayerController. The VideoPlayerController
-    // offers several different constructors to play videos from assets, files,
-    // or the internet.
     _controller = VideoPlayerController.asset(Assets.videos.tutorial);
 
     chewieController = ChewieController(
@@ -44,11 +40,12 @@ class _ColorVisionTestPageState extends State<ColorVisionTestPage> {
     playerWidget = Chewie(
       controller: chewieController,
     );
+
+    checkPermission();
   }
 
   @override
   void dispose() {
-    // Ensure disposing of the VideoPlayerController to free up resources.
     _controller.dispose();
     chewieController.dispose();
     super.dispose();
