@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:seeing_beyond/core/utils/hex_to_colors.dart';
 
 import 'package:seeing_beyond/src/color_vision_test/presentation/bloc/color_vision_bloc.dart';
 import 'package:seeing_beyond/src/color_vision_test/presentation/widgets/start_body.dart';
@@ -26,10 +27,17 @@ class BodyExamColorTest extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  Text(
-                    'Identify the color ${state.isStartExam ? state.currentIndex + 1 : ''}/21',
-                    style: themeContext.textTheme.titleLarge,
-                  ),
+                  if (state.isStartExam) ...[
+                    Text(
+                      'Identify the color ${state.isStartExam ? state.currentIndex + 1 : ''}/21',
+                      style: themeContext.textTheme.titleLarge,
+                    ),
+                  ] else ...[
+                    Text(
+                      'Identify the color',
+                      style: themeContext.textTheme.titleLarge,
+                    ),
+                  ],
                   const Gap(10),
                   if (!state.isDoneExam) ...[
                     Expanded(
@@ -68,11 +76,5 @@ class BodyExamColorTest extends StatelessWidget {
 
   void startColorTest(BuildContext context) {
     BlocProvider.of<ColorVisionBloc>(context).add(OnStartColorVisionTest());
-  }
-
-  Color hexToColors(String colorCode) {
-    String color = colorCode.replaceAll('#', '0xff');
-
-    return Color(int.parse(color));
   }
 }

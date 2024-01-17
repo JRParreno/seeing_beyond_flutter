@@ -148,6 +148,8 @@ class ColorVisionBloc extends Bloc<ColorVisionEvent, ColorVisionState> {
       return colorResultModel.copyWith(
         percentage: percentage,
         isDifficulty: percentage < 100,
+        colorCode: colorDataModel.colorCode,
+        colorName: colorDataModel.colorName,
       );
     }
     return colorResultModel;
