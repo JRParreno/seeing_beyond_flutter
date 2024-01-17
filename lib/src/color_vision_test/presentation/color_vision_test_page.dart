@@ -76,10 +76,8 @@ class _ColorVisionTestPageState extends State<ColorVisionTestPage> {
               SizedBox(
                 height: 200,
                 child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: playerWidget,
-                  ),
+                  clipBehavior: Clip.hardEdge,
+                  child: playerWidget,
                 ),
               ),
               const Gap(10),

@@ -18,11 +18,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       body: SafeArea(
         child: Column(
           children: [
-            Expanded(
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.4,
               child: Assets.lottie.onBoardingAnimation.lottie(),
             ),
             const Expanded(
-              flex: 2,
               child: BodyOnboarding(),
             ),
           ],

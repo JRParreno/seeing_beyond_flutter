@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:seeing_beyond/core/common_widget/common_widget.dart';
 import 'package:seeing_beyond/core/common_widget/custom_appbar.dart';
 import 'package:seeing_beyond/src/color_vision_test/presentation/bloc/color_vision_bloc.dart';
 import 'package:seeing_beyond/src/color_vision_test/presentation/color_vision_test_result.dart';
@@ -31,42 +32,70 @@ class _ColorVisionActualTestPageState extends State<ColorVisionActualTestPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(
-        context: context,
-        title: 'Color Vision Test',
-      ),
-      body: BlocConsumer<ColorVisionBloc, ColorVisionState>(
-        listener: (context, state) {
-          if (state is ColorVisionStart) {
-            if (state.isDoneExam) {
-              BlocProvider.of<ColorVisionBloc>(context).add(OnGetResultTest());
+    return WillPopScope(
+      onWillPop: () async {
+        exitDialog();
+        return false;
+      },
+      child: Scaffold(
+        appBar: buildAppBar(
+            context: context,
+            title: 'Color Vision Test',
+            leading: IconButton(
+              icon: const Icon(
+                Icons.chevron_left,
+                size: 40,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                exitDialog();
+              },
+            ),
+            actions: [
+              IconButton(
+                icon: const Icon(
+                  Icons.help,
+                  size: 30,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  helpDialog();
+                },
+              ),
+            ]),
+        body: BlocConsumer<ColorVisionBloc, ColorVisionState>(
+          listener: (context, state) {
+            if (state is ColorVisionStart) {
+              if (state.isDoneExam) {
+                BlocProvider.of<ColorVisionBloc>(context)
+                    .add(OnGetResultTest());
 
-              Navigator.of(context)
-                  .pushReplacementNamed(ColorVisionTestResult.routeName);
+                Navigator.of(context)
+                    .pushReplacementNamed(ColorVisionTestResult.routeName);
+              }
             }
-          }
-        },
-        builder: (context, state) {
-          if (state is ColorVisitionError) {
+          },
+          builder: (context, state) {
+            if (state is ColorVisitionError) {
+              return const Center(
+                child: Text('Something went wrong.'),
+              );
+            }
+            if (state is ColorVisionStart) {
+              return BodyExamColorTest(
+                state: state,
+              );
+            }
             return const Center(
-              child: Text('Something went wrong.'),
+              child: CircularProgressIndicator(),
             );
-          }
-          if (state is ColorVisionStart) {
-            return BodyExamColorTest(
-              state: state,
-            );
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
-      bottomNavigationBar: BottomNavColorTest(
-        speechToText: _speechToText,
-        startListening: _startListening,
-        stopListening: _stopListening,
+          },
+        ),
+        bottomNavigationBar: BottomNavColorTest(
+          speechToText: _speechToText,
+          startListening: _startListening,
+          stopListening: _stopListening,
+        ),
       ),
     );
   }
@@ -78,6 +107,41 @@ class _ColorVisionActualTestPageState extends State<ColorVisionActualTestPage> {
 
   void startColorTest() {
     BlocProvider.of<ColorVisionBloc>(context).add(OnStartColorVisionTest());
+  }
+
+  void exitDialog() {
+    CommonDialog.showMyDialog(
+      context: context,
+      body: 'Do you want to exit the test?',
+      buttons: [
+        TextButton(
+          child: const Text(
+            'Yes',
+            style: TextStyle(
+              color: Colors.red,
+            ),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pop();
+          },
+        ),
+        TextButton(
+          child: const Text("No"),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
+
+  void helpDialog() {
+    CommonDialog.showMyDialog(
+      context: context,
+      body:
+          "Random various colors will flash on the screen. Identify each one to proceed to the next.\n\nPlease use the microphone to respond. Tap the 'Continue' button to start the test.",
+    );
   }
 
   /// Each time to start a speech recognition session

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:seeing_beyond/core/utils/hex_to_colors.dart';
+import 'package:seeing_beyond/gen/colors.gen.dart';
 
 import 'package:seeing_beyond/src/color_vision_test/presentation/bloc/color_vision_bloc.dart';
 import 'package:seeing_beyond/src/color_vision_test/presentation/widgets/start_body.dart';
@@ -29,8 +30,12 @@ class BodyExamColorTest extends StatelessWidget {
                 children: [
                   if (state.isStartExam) ...[
                     Text(
-                      'Identify the color ${state.isStartExam ? state.currentIndex + 1 : ''}/21',
-                      style: themeContext.textTheme.titleLarge,
+                      'IDENTIFY THE COLOR ${state.isStartExam ? state.currentIndex + 1 : ''}/21',
+                      style: const TextStyle(
+                        color: ColorName.placeHolder,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 22,
+                      ),
                     ),
                   ] else ...[
                     Text(
@@ -41,7 +46,7 @@ class BodyExamColorTest extends StatelessWidget {
                   const Gap(10),
                   if (!state.isDoneExam) ...[
                     Expanded(
-                      child: Container(
+                      child: AnimatedContainer(
                         decoration: BoxDecoration(
                           color: state.isStartExam
                               ? hexToColors(state
@@ -51,9 +56,13 @@ class BodyExamColorTest extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                             color: Colors.black54,
-                            width: 2,
+                            width: 5,
                           ),
                         ),
+                        duration: const Duration(
+                          seconds: 1,
+                        ),
+                        curve: Curves.fastOutSlowIn,
                       ),
                     ),
                   ],

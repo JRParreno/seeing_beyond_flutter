@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seeing_beyond/core/config/app_constant.dart';
 
 class CommonDialog {
   static Future<void> showMyDialog({
@@ -14,7 +15,9 @@ class CommonDialog {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(title ?? "FireGuard"),
+          title: Text(
+            title ?? AppConstant.appName,
+          ),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
