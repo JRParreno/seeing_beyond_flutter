@@ -129,7 +129,6 @@
             "colorCode": "#4b0082",
             "colorName": "indigo",
             "family": [
-                "#f4e6ff",
                 "#eaccff",
                 "#dfb3ff",
                 "#d499ff",
@@ -140,6 +139,7 @@
                 "#9f1aff",
                 "#9500ff",
                 "#8600e6",
+                "#4b0082",
                 "#7700cc",
                 "#6800b3",
                 "#590099",
@@ -153,7 +153,6 @@
             "colorCode": "#8f00ff",
             "colorName": "violet",
             "family": [
-                "#f4e6ff",
                 "#e9ccff",
                 "#deb3ff",
                 "#d399ff",
@@ -163,6 +162,7 @@
                 "#a733ff",
                 "#9c1aff",
                 "#8200e6",
+                "#8f00ff",
                 "#7400cc",
                 "#6500b3",
                 "#570099",

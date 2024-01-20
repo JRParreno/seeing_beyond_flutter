@@ -24,3 +24,11 @@ Future<void> listenForPermissions() async {
 Future<void> requestForPermission() async {
   await Permission.microphone.request();
 }
+
+Future<bool> cameraPermission() async {
+  final permission = await Permission.camera.request();
+  if (permission.isDenied || permission.isPermanentlyDenied) {
+    return false;
+  }
+  return true;
+}

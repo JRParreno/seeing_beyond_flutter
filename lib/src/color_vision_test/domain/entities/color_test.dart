@@ -9,6 +9,10 @@ class ColorTest extends Equatable {
     required this.colorCode,
   });
 
+  factory ColorTest.empty() {
+    return const ColorTest(colorName: '', colorCode: '');
+  }
+
   @override
   List<Object?> get props => [
         colorName,

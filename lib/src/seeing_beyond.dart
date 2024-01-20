@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:seeing_beyond/core/local_storage/local_storage.dart';
 import 'package:seeing_beyond/core/resources/theme/theme.dart';
 import 'package:seeing_beyond/core/routes/routes.dart';
+import 'package:seeing_beyond/src/color_scanner/data/data_sources/color_scanner_repository_impl.dart';
+import 'package:seeing_beyond/src/color_scanner/presentation/bloc/color_scanner_bloc.dart';
 import 'package:seeing_beyond/src/color_vision_test/data/datasources/color_vision_repository_impl.dart';
 import 'package:seeing_beyond/src/color_vision_test/presentation/bloc/color_vision_bloc.dart';
 import 'package:seeing_beyond/src/on_boarding/on_boarding_page.dart';
@@ -41,8 +43,14 @@ class _SeeingBeyondState extends State<SeeingBeyond> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ColorVisionBloc(ColorVisionRepositoryImpl()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (context) => ColorVisionBloc(ColorVisionRepositoryImpl())),
+        BlocProvider(
+            create: (context) =>
+                ColorScannerBloc(ColorScannerRepositoryImpl())),
+      ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         minTextAdapt: true,

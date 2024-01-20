@@ -5,3 +5,8 @@ Color hexToColors(String colorCode) {
 
   return Color(int.parse(color));
 }
+
+extension HexColor on Color {
+  String toHexTriplet() =>
+      '#${(value & 0xFFFFFF).toRadixString(16).padLeft(6, '0').toLowerCase()}';
+}

@@ -52,6 +52,11 @@ dependencies:
   speech_to_text: ^6.5.1
   permission_handler: ^11.0.1
   fluttertoast: ^8.2.4
+  palette_generator: ^0.3.3+3
+  camera: ^0.10.5+9
+  path_provider: ^2.1.2
+  path: ^1.8.3
+  image_picker: ^1.0.7
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +86,7 @@ flutter:
     - assets/lottie/
     - assets/videos/
     - assets/json/
+    - assets/sample_colors/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
