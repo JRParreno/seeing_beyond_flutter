@@ -36,6 +36,7 @@ class ConclusionResults extends StatelessWidget {
               style: TextStyle(
                 color: ColorName.placeHolder,
               ),
+              textAlign: TextAlign.justify,
             ),
           ],
           const Gap(10),
@@ -64,6 +65,7 @@ class ConclusionResults extends StatelessWidget {
             style: TextStyle(
               color: ColorName.placeHolder,
             ),
+            textAlign: TextAlign.justify,
           ),
           const Gap(30),
         ],
@@ -80,6 +82,7 @@ class ConclusionResults extends StatelessWidget {
         style: TextStyle(
           color: ColorName.placeHolder,
         ),
+        textAlign: TextAlign.justify,
       );
     }
 
@@ -101,6 +104,7 @@ class ConclusionResults extends StatelessWidget {
     }
 
     return RichText(
+      textAlign: TextAlign.justify,
       text: TextSpan(
         style: const TextStyle(
           color: ColorName.placeHolder,

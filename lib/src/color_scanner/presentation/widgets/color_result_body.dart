@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:seeing_beyond/core/common_widget/common_widget.dart';
 import 'package:seeing_beyond/gen/colors.gen.dart';
 import 'package:seeing_beyond/src/color_scanner/presentation/bloc/color_scanner_bloc.dart';
 import 'package:seeing_beyond/src/color_scanner/presentation/widgets/color_scanner_results_card.dart';
+import 'package:seeing_beyond/src/home/home_page.dart';
 
 class ColorResultBody extends StatelessWidget {
   const ColorResultBody({super.key});
@@ -11,7 +13,6 @@ class ColorResultBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.35,
       child: BlocBuilder<ColorScannerBloc, ColorScannerState>(
         builder: (context, state) {
           if (state is ColorScannerErrorState) {
@@ -37,8 +38,28 @@ class ColorResultBody extends StatelessWidget {
                 const Gap(
                   30,
                 ),
-                ColorScannerResultsCard(
-                  colorScanResultModel: state.result,
+                if (state.result.exactColor == null) ...[
+                  ColorScannerResultsCard(
+                    colorScanResultModel: state.result,
+                  ),
+                  const Gap(
+                    10,
+                  ),
+                ],
+                const Divider(
+                  color: ColorName.border,
+                ),
+                const Gap(
+                  10,
+                ),
+                CustomBtn(
+                  label: 'Finish',
+                  onTap: () {
+                    Navigator.popUntil(
+                      context,
+                      ModalRoute.withName(HomePage.routeName),
+                    );
+                  },
                 ),
               ],
             );

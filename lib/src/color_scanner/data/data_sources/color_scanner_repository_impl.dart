@@ -37,7 +37,7 @@ class ColorScannerRepositoryImpl extends ColorScannerRepository {
       if (colors.colorCode.toLowerCase() == hexColor.toLowerCase()) {
         tempResult = ColorScanResultModel(
           nearColors: nearColors,
-          exactColor: colors.colorCode,
+          exactColor: colors.colorName,
         );
         break;
       }

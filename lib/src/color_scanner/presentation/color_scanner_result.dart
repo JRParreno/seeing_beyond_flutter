@@ -72,21 +72,6 @@ class _ColorScannerResultState extends State<ColorScannerResult> {
                 30,
               ),
               const ColorResultBody(),
-              const Divider(
-                color: ColorName.border,
-              ),
-              const Gap(
-                10,
-              ),
-              CustomBtn(
-                label: 'Finish',
-                onTap: () {
-                  Navigator.popUntil(
-                    context,
-                    ModalRoute.withName(HomePage.routeName),
-                  );
-                },
-              ),
             ],
           ),
         ),
