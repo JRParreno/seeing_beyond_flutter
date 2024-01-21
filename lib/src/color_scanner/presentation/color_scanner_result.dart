@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:palette_generator/palette_generator.dart';
-import 'package:seeing_beyond/core/common_widget/common_widget.dart';
 import 'package:seeing_beyond/core/common_widget/custom_appbar.dart';
 import 'package:seeing_beyond/gen/colors.gen.dart';
 
 import 'package:seeing_beyond/src/color_scanner/presentation/bloc/color_scanner_bloc.dart';
 import 'package:seeing_beyond/src/color_scanner/presentation/widgets/color_result_body.dart';
-import 'package:seeing_beyond/src/home/home_page.dart';
 
 class ColorScannerResult extends StatefulWidget {
   static const String routeName = '/color-scanner-result';

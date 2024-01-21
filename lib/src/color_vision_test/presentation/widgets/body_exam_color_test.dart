@@ -30,7 +30,7 @@ class BodyExamColorTest extends StatelessWidget {
                 children: [
                   if (state.isStartExam) ...[
                     Text(
-                      'IDENTIFY THE COLOR ${state.isStartExam ? state.currentIndex + 1 : ''}/21 ${state.colorDataModels[state.currentIndex].colorName}',
+                      'IDENTIFY THE COLOR ${state.isStartExam ? state.currentIndex + 1 : ''}/21',
                       style: const TextStyle(
                         color: ColorName.placeHolder,
                         fontWeight: FontWeight.w500,

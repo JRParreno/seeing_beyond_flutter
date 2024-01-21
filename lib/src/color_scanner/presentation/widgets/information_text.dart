@@ -27,7 +27,23 @@ class ColorScannerInformationText extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                  "Click on 'Take a Picture' to activate your device's camera. Capture an image of an object or scene containing colors you want to explore. The app will analyze the real-time image, categorizing the colors into predefined categories (ROYGBIV).",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Gap(10),
+                Text(
+                  "Select 'Upload Image' to choose a photo from your phone's pictures. Pick a photo with colors you're curious about. The app will check the colors in that photo and show you what they are.",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Gap(10),
+                Text(
+                  "Tap the 'Scan Color' button to proceed.",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
