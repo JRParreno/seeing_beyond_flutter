@@ -28,7 +28,7 @@ class _ColorVisionTestPageState extends State<ColorVisionTestPage> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset(Assets.videos.tutorial);
+    _controller = VideoPlayerController.asset(Assets.videos.colorVisionTest);
 
     chewieController = ChewieController(
       videoPlayerController: _controller,

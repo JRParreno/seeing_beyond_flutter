@@ -9,6 +9,7 @@ import 'package:seeing_beyond/src/color_scanner/data/data_sources/color_scanner_
 import 'package:seeing_beyond/src/color_scanner/presentation/bloc/color_scanner_bloc.dart';
 import 'package:seeing_beyond/src/color_vision_test/data/datasources/color_vision_repository_impl.dart';
 import 'package:seeing_beyond/src/color_vision_test/presentation/bloc/color_vision_bloc.dart';
+import 'package:seeing_beyond/src/home/home_page.dart';
 import 'package:seeing_beyond/src/on_boarding/on_boarding_page.dart';
 
 class SeeingBeyond extends StatefulWidget {
@@ -20,7 +21,7 @@ class SeeingBeyond extends StatefulWidget {
 }
 
 class _SeeingBeyondState extends State<SeeingBeyond> {
-  bool isNeedOnBoarded = false;
+  bool isNeedOnBoarded = true;
 
   @override
   void initState() {
@@ -33,7 +34,7 @@ class _SeeingBeyondState extends State<SeeingBeyond> {
 
     if (onBoarding != null) {
       setState(() {
-        isNeedOnBoarded = onBoarding;
+        isNeedOnBoarded = bool.parse(onBoarding);
       });
     }
     Future.delayed(const Duration(seconds: 2), () {
@@ -62,9 +63,7 @@ class _SeeingBeyondState extends State<SeeingBeyond> {
             darkTheme: MaterialAppThemes.lightTheme,
             theme: MaterialAppThemes.lightTheme,
             onGenerateRoute: generateRoute,
-            home: isNeedOnBoarded
-                ? const OnBoardingPage()
-                : const OnBoardingPage(),
+            home: isNeedOnBoarded ? const OnBoardingPage() : const HomePage(),
           );
         }),
       ),

@@ -5,7 +5,6 @@ import 'package:seeing_beyond/core/common_widget/common_widget.dart';
 import 'package:seeing_beyond/gen/colors.gen.dart';
 import 'package:seeing_beyond/src/color_scanner/presentation/bloc/color_scanner_bloc.dart';
 import 'package:seeing_beyond/src/color_scanner/presentation/widgets/color_scanner_results_card.dart';
-import 'package:seeing_beyond/src/home/home_page.dart';
 
 class ColorResultBody extends StatelessWidget {
   const ColorResultBody({super.key});
@@ -57,7 +56,7 @@ class ColorResultBody extends StatelessWidget {
                   onTap: () {
                     Navigator.popUntil(
                       context,
-                      ModalRoute.withName(HomePage.routeName),
+                      ModalRoute.withName('/'),
                     );
                   },
                 ),

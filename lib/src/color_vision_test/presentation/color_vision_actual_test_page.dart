@@ -202,6 +202,7 @@ class _ColorVisionActualTestPageState extends State<ColorVisionActualTestPage> {
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
+      _stopListening();
     }
   }
 }

@@ -26,7 +26,7 @@ class _ColorScannerPageState extends State<ColorScannerPage> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset(Assets.videos.tutorial);
+    _controller = VideoPlayerController.asset(Assets.videos.colorScanner);
 
     chewieController = ChewieController(
       videoPlayerController: _controller,

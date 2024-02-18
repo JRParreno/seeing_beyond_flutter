@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seeing_beyond/core/common_widget/common_widget.dart';
+import 'package:seeing_beyond/core/local_storage/local_storage.dart';
 import 'package:seeing_beyond/gen/colors.gen.dart';
 import 'package:seeing_beyond/src/home/home_page.dart';
 
@@ -15,6 +16,7 @@ class BottomOnboarding extends StatelessWidget {
       child: CustomBtn(
         label: 'Get Started',
         onTap: () {
+          LocalStorage.storeLocalStorage('on_boarding', 'false');
           Navigator.of(context).pushNamed(HomePage.routeName);
         },
         backgroundColor: Colors.white,
