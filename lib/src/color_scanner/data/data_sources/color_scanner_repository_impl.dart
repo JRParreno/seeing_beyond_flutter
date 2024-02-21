@@ -25,8 +25,11 @@ class ColorScannerRepositoryImpl extends ColorScannerRepository {
   }
 
   @override
-  ColorScanResultModel getColorScanResult(
-      {required List<ColorDataModel> data, required Color dominantColor}) {
+  ColorScanResultModel getColorScanResult({
+    required List<ColorDataModel> data,
+    required Color dominantColor,
+    required bool isScanner,
+  }) {
     ColorScanResultModel tempResult = ColorScanResultModel.empty();
     final hexColor = dominantColor.toHexTriplet();
     List<ColorNear> nearColors = [];
@@ -42,10 +45,19 @@ class ColorScannerRepositoryImpl extends ColorScannerRepository {
         break;
       }
 
-      final nearFamilyColor = getNearColorFamily(
-        colorDataModel: colors,
-        hexColor: hexColor.toLowerCase(),
-      );
+      ColorNear nearFamilyColor = ColorNear.empty();
+
+      if (isScanner) {
+        nearFamilyColor = getNearColorFamilys(
+          colorDataModel: colors,
+          hexColor: hexColor.toLowerCase(),
+        );
+      } else {
+        nearFamilyColor = getNearColorFamily(
+          colorDataModel: colors,
+          hexColor: hexColor.toLowerCase(),
+        );
+      }
 
       nearColors.add(nearFamilyColor);
     }
@@ -59,6 +71,38 @@ class ColorScannerRepositoryImpl extends ColorScannerRepository {
   }
 
   ColorNear getNearColorFamily({
+    required ColorDataModel colorDataModel,
+    required String hexColor,
+  }) {
+    double nearValue = -1;
+
+    final tempNearValue = similarValue(
+      baseColor: Color(
+        int.parse(
+          colorDataModel.colorCode.replaceAll('#', '0xff'),
+        ),
+      ),
+      fromImageColor: Color(
+        int.parse(
+          hexColor.replaceAll('#', '0xff'),
+        ),
+      ),
+    );
+
+    if (nearValue < 0) {
+      nearValue = tempNearValue;
+    } else {
+      nearValue = tempNearValue < nearValue ? tempNearValue : nearValue;
+    }
+
+    return ColorNear(
+      colorName: colorDataModel.colorName,
+      nearValue: nearValue,
+      colorCode: colorDataModel.colorCode,
+    );
+  }
+
+  ColorNear getNearColorFamilys({
     required ColorDataModel colorDataModel,
     required String hexColor,
   }) {

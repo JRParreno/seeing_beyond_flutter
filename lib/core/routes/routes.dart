@@ -35,9 +35,9 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
             args: args,
           );
         case ColorScannerResult.routeName:
-          final args = settings.arguments! as ImageProvider;
+          final args = settings.arguments! as ColorScannerResultArgs;
           return ColorScannerResult(
-            imageProvider: args,
+            args: args,
           );
         case ColorScannerSelectionPage.routeName:
           return const ColorScannerSelectionPage();

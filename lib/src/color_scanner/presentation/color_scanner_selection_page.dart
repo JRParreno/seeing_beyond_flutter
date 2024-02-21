@@ -114,9 +114,11 @@ class _ColorScannerSelectionPageState extends State<ColorScannerSelectionPage> {
     if (pickImage != null) {
       Navigator.of(context).pushNamed(
         ColorScannerResult.routeName,
-        arguments: Image.file(
-          File(pickImage.path),
-        ).image,
+        arguments: ColorScannerResultArgs(
+          imageProvider: Image.file(
+            File(pickImage.path),
+          ).image,
+        ),
       );
     }
   }

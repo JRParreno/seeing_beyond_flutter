@@ -44,7 +44,6 @@ class _ColorScannerCameraState extends State<ColorScannerCamera> {
 
     _initializeControllerFuture = _controller.initialize();
     _controller.setFlashMode(FlashMode.off);
-    _controller.setExposureMode(ExposureMode.locked);
   }
 
   @override
@@ -141,9 +140,12 @@ class _ColorScannerCameraState extends State<ColorScannerCamera> {
       // If the picture was taken, display it on a new screen.
       await Navigator.of(context).pushNamed(
         ColorScannerResult.routeName,
-        arguments: Image.file(
-          File(image.path),
-        ).image,
+        arguments: ColorScannerResultArgs(
+          imageProvider: Image.file(
+            File(image.path),
+          ).image,
+          isScanner: true,
+        ),
       );
     } catch (e) {
       // If an error occurs, log the error to the console.

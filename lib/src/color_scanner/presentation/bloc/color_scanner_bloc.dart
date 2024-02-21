@@ -32,7 +32,10 @@ class ColorScannerBloc extends Bloc<ColorScannerEvent, ColorScannerState> {
     try {
       final dataColors = await colorScannerRepository.getColorDataModel();
       final result = colorScannerRepository.getColorScanResult(
-          data: dataColors, dominantColor: event.color);
+        data: dataColors,
+        dominantColor: event.color,
+        isScanner: event.isScanner,
+      );
 
       emit(ColorScannerLoaded(result));
     } catch (e) {

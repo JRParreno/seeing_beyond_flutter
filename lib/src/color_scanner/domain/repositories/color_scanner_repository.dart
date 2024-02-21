@@ -7,5 +7,6 @@ abstract class ColorScannerRepository {
   ColorScanResultModel getColorScanResult({
     required List<ColorDataModel> data,
     required Color dominantColor,
+    required bool isScanner,
   });
 }

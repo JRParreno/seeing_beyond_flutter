@@ -9,13 +9,17 @@ abstract class ColorScannerEvent extends Equatable {
 
 class OnGetScanResult extends ColorScannerEvent {
   final Color color;
+  final bool isScanner;
+
   const OnGetScanResult({
     required this.color,
+    required this.isScanner,
   });
 
   @override
   List<Object> get props => [
         color,
+        isScanner,
       ];
 }
 

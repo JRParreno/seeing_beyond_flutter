@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:seeing_beyond/core/local_storage/local_storage.dart';
 import 'package:seeing_beyond/core/resources/theme/theme.dart';
 import 'package:seeing_beyond/core/routes/routes.dart';
-import 'package:seeing_beyond/src/color_scanner/data/data_sources/color_scanner_repository_impl.dart';
-import 'package:seeing_beyond/src/color_scanner/presentation/bloc/color_scanner_bloc.dart';
 import 'package:seeing_beyond/src/color_vision_test/data/datasources/color_vision_repository_impl.dart';
 import 'package:seeing_beyond/src/color_vision_test/presentation/bloc/color_vision_bloc.dart';
 import 'package:seeing_beyond/src/home/home_page.dart';
@@ -30,13 +28,13 @@ class _SeeingBeyondState extends State<SeeingBeyond> {
   }
 
   void initialization() async {
-    final onBoarding = await LocalStorage.readLocalStorage('on_boarding');
+    // final onBoarding = await LocalStorage.readLocalStorage('on_boarding');
 
-    if (onBoarding != null) {
-      setState(() {
-        isNeedOnBoarded = bool.parse(onBoarding);
-      });
-    }
+    // if (onBoarding != null) {
+    //   setState(() {
+    //     isNeedOnBoarded = bool.parse(onBoarding);
+    //   });
+    // }
     Future.delayed(const Duration(seconds: 2), () {
       FlutterNativeSplash.remove();
     });
@@ -48,9 +46,6 @@ class _SeeingBeyondState extends State<SeeingBeyond> {
       providers: [
         BlocProvider(
             create: (context) => ColorVisionBloc(ColorVisionRepositoryImpl())),
-        BlocProvider(
-            create: (context) =>
-                ColorScannerBloc(ColorScannerRepositoryImpl())),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
