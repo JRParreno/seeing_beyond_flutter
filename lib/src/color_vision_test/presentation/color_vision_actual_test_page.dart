@@ -22,6 +22,7 @@ class ColorVisionActualTestPage extends StatefulWidget {
 
 class _ColorVisionActualTestPageState extends State<ColorVisionActualTestPage> {
   final SpeechToText _speechToText = SpeechToText();
+  bool isFirstTry = true;
 
   @override
   void initState() {
@@ -152,7 +153,7 @@ class _ColorVisionActualTestPageState extends State<ColorVisionActualTestPage> {
       localeId: "en_En",
       cancelOnError: false,
       partialResults: false,
-      listenMode: ListenMode.confirmation,
+      listenMode: ListenMode.deviceDefault,
     );
     setState(() {});
   }
@@ -190,19 +191,33 @@ class _ColorVisionActualTestPageState extends State<ColorVisionActualTestPage> {
         break;
       }
     }
-    if (colorName.isNotEmpty) {
-      BlocProvider.of<ColorVisionBloc>(context)
-          .add(OnGetSpeechToText(result.recognizedWords));
-    } else {
-      Fluttertoast.showToast(
-          msg: "Please try again",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
-      _stopListening();
+
+    if (!isFirstTry || colorName.isNotEmpty) {
+      BlocProvider.of<ColorVisionBloc>(context).add(
+        OnGetSpeechToText(
+            words: result.recognizedWords,
+            isOverrideWrongAnswer: colorName.isEmpty),
+      );
+      setState(() {
+        isFirstTry = true;
+      });
+
+      return;
     }
+
+    setState(() {
+      isFirstTry = false;
+    });
+    Fluttertoast.showToast(
+        msg: "Please try again",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+    _stopListening();
+
+    return;
   }
 }

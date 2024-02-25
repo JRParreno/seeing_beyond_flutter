@@ -29,8 +29,10 @@ class ColorVisionBloc extends Bloc<ColorVisionEvent, ColorVisionState> {
           colorName: colorDataModels[currentIndex].colorName,
           colorCode: colorDataModels[currentIndex].colorCode,
           family: colorDataModels[currentIndex].family,
-          isCorrect: colorDataModels[currentIndex].colorName ==
-              event.words.toLowerCase());
+          isCorrect: event.isOverrideWrongAnswer
+              ? false
+              : colorDataModels[currentIndex].colorName ==
+                  event.words.toLowerCase());
 
       final isDone = currentIndex + 1 == 21;
 

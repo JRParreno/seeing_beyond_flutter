@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:seeing_beyond/core/local_storage/local_storage.dart';
 import 'package:seeing_beyond/core/resources/theme/theme.dart';
 import 'package:seeing_beyond/core/routes/routes.dart';
 import 'package:seeing_beyond/src/color_vision_test/data/datasources/color_vision_repository_impl.dart';

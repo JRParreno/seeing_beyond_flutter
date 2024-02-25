@@ -5,6 +5,7 @@ import 'package:seeing_beyond/core/common_widget/common_widget.dart';
 import 'package:seeing_beyond/gen/colors.gen.dart';
 import 'package:seeing_beyond/src/color_scanner/presentation/bloc/color_scanner_bloc.dart';
 import 'package:seeing_beyond/src/color_scanner/presentation/widgets/color_scanner_results_card.dart';
+import 'package:seeing_beyond/src/home/home_page.dart';
 
 class ColorResultBody extends StatelessWidget {
   const ColorResultBody({super.key});
@@ -25,9 +26,7 @@ class ColorResultBody extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Text(
-                  state.result.exactColor != null
-                      ? 'Color: ${state.result.exactColor?.toUpperCase()}'
-                      : 'TOP RESULT: ${state.result.nearColors[0].colorName.toUpperCase()}',
+                  'Color is ${state.result.exactColor != null ? state.result.exactColor?.colorName.toUpperCase() : state.result.nearColors[0].colorName.toUpperCase()}',
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
@@ -37,14 +36,13 @@ class ColorResultBody extends StatelessWidget {
                 const Gap(
                   30,
                 ),
-                if (state.result.exactColor == null) ...[
-                  ColorScannerResultsCard(
-                    colorScanResultModel: state.result,
-                  ),
-                  const Gap(
-                    10,
-                  ),
-                ],
+                ColorScannerResultsCard(
+                  colorScanResultModel: state.result,
+                  exactColor: state.result.exactColor,
+                ),
+                const Gap(
+                  10,
+                ),
                 const Divider(
                   color: ColorName.border,
                 ),
@@ -56,7 +54,7 @@ class ColorResultBody extends StatelessWidget {
                   onTap: () {
                     Navigator.popUntil(
                       context,
-                      ModalRoute.withName('/'),
+                      ModalRoute.withName(HomePage.routeName),
                     );
                   },
                 ),

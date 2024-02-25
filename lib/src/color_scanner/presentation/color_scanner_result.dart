@@ -33,10 +33,6 @@ class ColorScannerResult extends StatefulWidget {
 }
 
 class _ColorScannerResultState extends State<ColorScannerResult> {
-  Rect? region;
-  Rect? dragRegion;
-  Offset? startDrag;
-  Offset? currentDrag;
   PaletteGenerator? paletteGenerator;
   late ColorScannerBloc bloc;
 
@@ -60,6 +56,8 @@ class _ColorScannerResultState extends State<ColorScannerResult> {
             child: Column(
               children: [
                 Container(
+                  width: 300,
+                  height: 300,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
@@ -68,14 +66,9 @@ class _ColorScannerResultState extends State<ColorScannerResult> {
                     ),
                   ),
                   padding: const EdgeInsets.all(10),
-                  child: Center(
-                    child: ClipRRect(
-                      child: SizedOverflowBox(
-                        size: const Size(300, 300), // aspect is 1:1
-                        alignment: Alignment.center,
-                        child: Image(image: widget.args.imageProvider),
-                      ),
-                    ),
+                  child: Image(
+                    image: widget.args.imageProvider,
+                    fit: BoxFit.contain,
                   ),
                 ),
                 const Gap(
@@ -106,7 +99,8 @@ class _ColorScannerResultState extends State<ColorScannerResult> {
 
   Future<void> _updatePaletteGenerator() async {
     paletteGenerator = await PaletteGenerator.fromImageProvider(
-      widget.args.imageProvider,
+      Image(image: widget.args.imageProvider, fit: BoxFit.contain).image,
+      maximumColorCount: 2,
     );
     setState(() {});
     initBlocs();

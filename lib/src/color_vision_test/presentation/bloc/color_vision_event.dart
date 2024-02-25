@@ -13,12 +13,15 @@ class OnInitShuffleColorVisionTest extends ColorVisionEvent {}
 
 class OnGetSpeechToText extends ColorVisionEvent {
   final String words;
-  const OnGetSpeechToText(this.words);
+  final bool isOverrideWrongAnswer;
+
+  const OnGetSpeechToText({
+    required this.words,
+    required this.isOverrideWrongAnswer,
+  });
 
   @override
-  List<Object> get props => [
-        words,
-      ];
+  List<Object> get props => [words, isOverrideWrongAnswer];
 }
 
 class OnGetResultTest extends ColorVisionEvent {}

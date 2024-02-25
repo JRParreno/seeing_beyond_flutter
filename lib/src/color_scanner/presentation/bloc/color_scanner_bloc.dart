@@ -37,6 +37,8 @@ class ColorScannerBloc extends Bloc<ColorScannerEvent, ColorScannerState> {
         isScanner: event.isScanner,
       );
 
+      print(result);
+
       emit(ColorScannerLoaded(result));
     } catch (e) {
       emit(ColorScannerErrorState());

@@ -8,6 +8,7 @@ import 'package:seeing_beyond/gen/assets.gen.dart';
 import 'package:seeing_beyond/src/color_scanner/data/models/color_near.dart';
 import 'package:seeing_beyond/src/color_scanner/data/models/color_scan_result_model.dart';
 import 'package:seeing_beyond/src/color_scanner/domain/repositories/color_scanner_repository.dart';
+import 'package:seeing_beyond/src/color_vision_test/domain/entities/color_test.dart';
 
 class ColorScannerRepositoryImpl extends ColorScannerRepository {
   @override
@@ -40,7 +41,8 @@ class ColorScannerRepositoryImpl extends ColorScannerRepository {
       if (colors.colorCode.toLowerCase() == hexColor.toLowerCase()) {
         tempResult = ColorScanResultModel(
           nearColors: nearColors,
-          exactColor: colors.colorName,
+          exactColor: ColorTest(
+              colorCode: colors.colorCode, colorName: colors.colorName),
         );
         break;
       }
