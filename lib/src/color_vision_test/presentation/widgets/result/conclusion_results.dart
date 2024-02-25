@@ -51,7 +51,7 @@ class ConclusionResults extends StatelessWidget {
                 color: Colors.red,
               ),
               Text(
-                ' Remember!',
+                ' Disclaimer!',
                 style: TextStyle(
                   color: Colors.red,
                   fontSize: 23,
